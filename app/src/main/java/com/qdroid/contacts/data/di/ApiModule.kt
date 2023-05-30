@@ -2,6 +2,7 @@ package com.qdroid.contacts.data.di
 
 import com.qdroid.contacts.data.ApiService
 import com.qdroid.contacts.data.Repository
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,7 +36,7 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .build()

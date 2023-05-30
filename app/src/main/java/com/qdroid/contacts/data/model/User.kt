@@ -12,6 +12,8 @@ data class User(
     @Json(name = "status") val status: String?,
 )
 
+fun User.isActive() = status == "active"
+
 fun User.nameInitials(): String =
     name?.split(" ")
         ?.filterNot { it.endsWith(".") }
