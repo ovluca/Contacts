@@ -4,6 +4,6 @@ import com.qdroid.contacts.data.model.User
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("/users")
+    @GET("users")
     suspend fun getUsers(): List<User>
 }
