@@ -14,8 +14,17 @@ data class User(
 
 fun User.isActive() = status == "active"
 
-fun User.nameInitials(): String =
-    name?.split(" ")
-        ?.filterNot { it.endsWith(".") }
+fun User.nameInitials(): String {
+    val ignoreWords = listOf(
+        "miss", "mister", "mr", "mrs", "ms",
+        "dr", "prof", "sir", "lady", "lord",
+        "master", "madam", "capt",
+        "col", "maj", "gen", "adm",
+        "rev", "hon"
+    )
+    return name?.split(" ")
+        ?.filterNot { it.endsWith(".") || it.lowercase() in ignoreWords }
         ?.mapNotNull { it.firstOrNull()?.uppercase() }
         ?.joinToString("") ?: ""
+
+}

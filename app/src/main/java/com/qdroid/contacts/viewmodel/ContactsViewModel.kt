@@ -42,7 +42,7 @@ class ContactsViewModel @Inject constructor(
     }
 
     private fun processData(data: List<User>): List<Contact> =
-        data.filter { user: User -> user.isActive() }.map { user ->
+        data.filter { user: User -> !user.isActive() }.map { user ->
             Contact(
                 id = user.id ?: 0,
                 name = user.name ?: "",
