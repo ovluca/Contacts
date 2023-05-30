@@ -15,7 +15,9 @@ import com.qdroid.contacts.ui.screens.ContactDetailsScreen
 import com.qdroid.contacts.ui.screens.ContactsScreen
 import com.qdroid.contacts.ui.theme.ContactsTheme
 import com.qdroid.contacts.ui.theme.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
 
 @Composable
 fun Navigation() {
