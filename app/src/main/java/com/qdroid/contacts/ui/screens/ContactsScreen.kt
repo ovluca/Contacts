@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.qdroid.contacts.R
 import com.qdroid.contacts.state.UiState
-import com.qdroid.contacts.ui.theme.Screen
 import com.qdroid.contacts.ui.views.ContactsList
 import com.qdroid.contacts.viewmodel.Contact
 import com.qdroid.contacts.viewmodel.ContactsViewModel

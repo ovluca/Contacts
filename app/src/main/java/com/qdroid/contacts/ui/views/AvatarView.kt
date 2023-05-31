@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +43,7 @@ fun InitialsView(initials: String) {
         modifier = Modifier
             .size(dimensionResource(id = R.dimen.avatar_size))
             .clip(CircleShape)
-            .background(Color.LightGray),
+            .background(color = colorResource(id = R.color.light_gray_inactive)),
         contentAlignment = Alignment.Center
     ) {
         Text(

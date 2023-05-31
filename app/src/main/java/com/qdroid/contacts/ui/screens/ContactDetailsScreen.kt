@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -77,7 +78,7 @@ fun ContactDetailsScreen(
         )
         Text(
             text = contact.email,
-            color = Color.LightGray,
+            color = colorResource(id = R.color.dark_gray),
             modifier = Modifier.padding(top = 10.dp)
         )
 
@@ -87,7 +88,7 @@ fun ContactDetailsScreen(
                     modifier = Modifier
                         .padding(20.dp)
                         .fillMaxWidth()
-                        .background(Color.LightGray),
+                        .background(colorResource(id = R.color.info)),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -95,7 +96,7 @@ fun ContactDetailsScreen(
                         painter = painterResource(id = R.drawable.error_image),
                         contentDescription = ""
                     )
-                    Text(text = uiState.error, color = Color.White)
+                    Text(text = uiState.error, color = Color.Black)
                 }
             }
 
@@ -105,7 +106,7 @@ fun ContactDetailsScreen(
                     items(posts) {
                         Column(
                             modifier = Modifier
-                                .background(Color.LightGray)
+                                .background(colorResource(id = R.color.info))
                         ) {
                             Text(
                                 text = it.title ?: "",

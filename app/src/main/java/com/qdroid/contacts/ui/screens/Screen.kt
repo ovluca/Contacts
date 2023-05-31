@@ -1,4 +1,4 @@
-package com.qdroid.contacts.ui.theme
+package com.qdroid.contacts.ui.screens
 
 sealed class Screen(val route: String) {
     object Contacts : Screen("contacts")
