@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qdroid.contacts.data.ApiResult
 import com.qdroid.contacts.data.Repository
-import com.qdroid.contacts.data.model.User
-import com.qdroid.contacts.data.model.initials
-import com.qdroid.contacts.data.model.isActive
-import com.qdroid.contacts.isOdd
+import com.qdroid.contacts.data.model.Post
 import com.qdroid.contacts.state.ContactsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ContactsViewModel @Inject constructor(
+class ContactDetailsViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
@@ -27,29 +24,24 @@ class ContactsViewModel @Inject constructor(
         MutableStateFlow(ContactsUiState.Success())
     internal val uiState: StateFlow<ContactsUiState> = _uiState.asStateFlow()
 
-    init {
+    fun loadUserPosts(userId: Int) {
         viewModelScope.launch {
-            repository.getUsers().collect {
-                when (it) {
-                    is ApiResult.Error -> _uiState.value = ContactsUiState.Failure(it.exception)
+            repository.getUserPosts(userId = userId).collect { apiResult ->
+                when (apiResult) {
+                    is ApiResult.Error -> _uiState.value =
+                        ContactsUiState.Failure(apiResult.exception)
+
                     is ApiResult.Loading -> _uiState.value =
                         ContactsUiState.Loading
 
                     is ApiResult.Success -> _uiState.value =
-                        ContactsUiState.Success(processData(it.data as List<User>))
+                        if ((apiResult.data as List<Post>).isEmpty()) {
+                            ContactsUiState.Failure("No Posts")
+                        } else {
+                            ContactsUiState.Success(apiResult.data)
+                        }
                 }
             }
         }
     }
-
-    private suspend fun processData(data: List<User>): List<Contact> =
-        data.filter { user: User -> user.isActive() }.map { user ->
-            Contact(
-                id = user.id ?: 0,
-                name = user.name ?: "",
-                imageUrl = if (user.id?.isOdd() == true) repository.getRedirectedUrl() else "",
-                nameInitials = user.initials(),
-                email = user.email ?: ""
-            )
-        }
 }

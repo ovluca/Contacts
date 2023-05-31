@@ -29,9 +29,21 @@ class Repository(private val apiService: ApiService) {
                 HttpURLConnection.HTTP_MOVED_PERM, HttpURLConnection.HTTP_MOVED_TEMP -> {
                     getHeaderField("Location")
                 }
+
                 else -> url
             }
         }
     }
+
+    suspend fun getUserPosts(userId: Int) = flow {
+        emit(ApiResult.Loading(true))
+        try {
+            val response = apiService.getUserPosts(userId)
+            emit(ApiResult.Success(response))
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            emit(ApiResult.Error(e.message.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
 
 }

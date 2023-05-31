@@ -16,6 +16,7 @@ import com.qdroid.contacts.ui.screens.ContactDetailsScreen
 import com.qdroid.contacts.ui.screens.ContactsScreen
 import com.qdroid.contacts.ui.theme.ContactsTheme
 import com.qdroid.contacts.ui.theme.Screen
+import com.qdroid.contacts.viewmodel.ContactDetailsViewModel
 import com.qdroid.contacts.viewmodel.ContactsViewModel
 import com.qdroid.contacts.viewmodel.toContact
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,7 @@ class MainActivity : ComponentActivity() {
 fun Navigation() {
     val navController = rememberNavController()
     val contactsViewModel: ContactsViewModel = viewModel()
+    val contactDetailsViewModel: ContactDetailsViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = Screen.Contacts.route) {
         composable(Screen.Contacts.route) {
@@ -53,7 +55,8 @@ fun Navigation() {
                     ?.let { contact ->
                         ContactDetailsScreen(
                             navController = navController,
-                            contact = contact
+                            contact = contact,
+                            contactDetailsViewModel
                         )
                     }
             }

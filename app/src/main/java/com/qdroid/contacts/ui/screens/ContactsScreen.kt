@@ -26,14 +26,14 @@ import com.qdroid.contacts.viewmodel.toJson
 @Composable
 fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewModel) {
     val contactsUiState by viewModel.uiState.collectAsState()
-    when (contactsUiState) {
+    when (val uiState = contactsUiState) {
         is ContactsUiState.Failure -> Column(
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxSize()
         ) {
             Image(painter = painterResource(id = R.drawable.error_image), contentDescription = "")
-            Text(text = (contactsUiState as ContactsUiState.Failure).error)
+            Text(text = uiState.error)
         }
 
         is ContactsUiState.Loading -> Box(
@@ -46,7 +46,7 @@ fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewMode
         }
 
         is ContactsUiState.Success -> ContactsList(
-            contacts = (contactsUiState as ContactsUiState.Success).data as List<Contact>,
+            contacts = uiState.data as List<Contact>,
             onClick = { contact ->
                 navController.navigate(
                     /*not satisfied with the replace solution*/
