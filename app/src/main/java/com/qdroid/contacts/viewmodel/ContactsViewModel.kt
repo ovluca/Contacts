@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.qdroid.contacts.data.ApiResult
 import com.qdroid.contacts.data.Repository
 import com.qdroid.contacts.data.model.User
-import com.qdroid.contacts.data.model.isActive
 import com.qdroid.contacts.data.model.initials
+import com.qdroid.contacts.data.model.isActive
 import com.qdroid.contacts.isOdd
 import com.qdroid.contacts.state.ContactsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,7 +48,8 @@ class ContactsViewModel @Inject constructor(
                 id = user.id ?: 0,
                 name = user.name ?: "",
                 imageUrl = if (user.id?.isOdd() == true) repository.getRedirectedUrl() else "",
-                nameInitials = user.initials()
+                nameInitials = user.initials(),
+                email = user.email ?: ""
             )
         }
 }

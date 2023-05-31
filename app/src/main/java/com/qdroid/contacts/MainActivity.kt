@@ -17,6 +17,7 @@ import com.qdroid.contacts.ui.screens.ContactsScreen
 import com.qdroid.contacts.ui.theme.ContactsTheme
 import com.qdroid.contacts.ui.theme.Screen
 import com.qdroid.contacts.viewmodel.ContactsViewModel
+import com.qdroid.contacts.viewmodel.toContact
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +48,15 @@ fun Navigation() {
             ContactsScreen(navController = navController, viewModel = contactsViewModel)
         }
         composable(Screen.ContactDetails.route) { navBackStackEntry ->
-            navBackStackEntry.arguments?.getString("contact")?.let { contact -> ContactDetailsScreen(navController = navController, contact = contact) }
+            navBackStackEntry.arguments?.getString("contact")?.let { contactString ->
+                contactString.toContact()
+                    ?.let { contact ->
+                        ContactDetailsScreen(
+                            navController = navController,
+                            contact = contact
+                        )
+                    }
+            }
         }
     }
 }

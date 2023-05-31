@@ -102,37 +102,3 @@ fun ContactsList(contacts: List<Contact>, onClick: (contact: Contact) -> Unit) {
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
-@Composable
-fun Avatar(contact: Contact) {
-    if (contact.imageUrl.isNullOrEmpty()) {
-        InitialsView(initials = contact.nameInitials)
-    } else {
-        GlideImage(
-            model = contact.imageUrl,
-            contentDescription = stringResource(id = R.string.avatar),
-            modifier = Modifier
-                .size(dimensionResource(id = R.dimen.avatar_size))
-                .clip(CircleShape),
-        )
-    }
-}
-
-@Composable
-fun InitialsView(initials: String) {
-    Box(
-        modifier = Modifier
-            .size(dimensionResource(id = R.dimen.avatar_size))
-            .clip(CircleShape)
-            .background(Color.LightGray),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = initials,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            color = Color.White
-        )
-    }
-}

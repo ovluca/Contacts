@@ -11,7 +11,8 @@ data class Contact(
     val id: Int,
     val name: String,
     val imageUrl: String?,
-    val nameInitials: String
+    val nameInitials: String,
+    val email: String
 )
 /*The following code is a hack for sending data using compose navigation
 * sending parcelable in arguments is an anti-pattern in compose, but I serialized the data class into string in order to be sent to the details screen.
