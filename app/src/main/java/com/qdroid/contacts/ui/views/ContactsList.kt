@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,8 +32,9 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.qdroid.contacts.R
 import com.qdroid.contacts.viewmodel.Contact
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactsList(contacts: List<Contact>) {
+fun ContactsList(contacts: List<Contact>, onClick: (contact: Contact) -> Unit) {
     LazyColumn {
         item {
             Box(
@@ -65,11 +67,13 @@ fun ContactsList(contacts: List<Contact>) {
             }
         }
         items(contacts) {
-            Card(modifier = Modifier
-                .fillMaxWidth()
-                .padding(1.dp),
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(1.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 shape = RectangleShape,
+                onClick = { onClick(it) },
                 content = {
                     Row(
                         modifier = Modifier.padding(all = dimensionResource(id = R.dimen.box_horizontal_padding)),
