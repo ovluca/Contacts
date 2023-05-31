@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="box_horizontal_padding">24dp</dimen>
+    <dimen name="text_horizontal_padding">16dp</dimen>
+    <dimen name="avatar_size">46dp</dimen>
+    <dimen name="text_size">17sp</dimen>
+</resources>

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.qdroid.contacts.R
 import com.qdroid.contacts.state.ContactsUiState
-import com.qdroid.contacts.ui.theme.Screen
 import com.qdroid.contacts.ui.views.ContactsList
 import com.qdroid.contacts.viewmodel.ContactsViewModel
 
@@ -36,7 +34,7 @@ fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewMode
         }
 
         is ContactsUiState.Loading -> Box(
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .padding(20.dp)
                 .fillMaxSize(),
             contentAlignment = Alignment.Center

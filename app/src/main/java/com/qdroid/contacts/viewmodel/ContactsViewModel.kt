@@ -8,7 +8,8 @@ import com.qdroid.contacts.data.ApiResult
 import com.qdroid.contacts.data.Repository
 import com.qdroid.contacts.data.model.User
 import com.qdroid.contacts.data.model.isActive
-import com.qdroid.contacts.data.model.nameInitials
+import com.qdroid.contacts.data.model.initials
+import com.qdroid.contacts.isOdd
 import com.qdroid.contacts.state.ContactsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,13 +42,13 @@ class ContactsViewModel @Inject constructor(
         }
     }
 
-    private fun processData(data: List<User>): List<Contact> =
-        data.filter { user: User -> !user.isActive() }.map { user ->
+    private suspend fun processData(data: List<User>): List<Contact> =
+        data.filter { user: User -> user.isActive() }.map { user ->
             Contact(
                 id = user.id ?: 0,
                 name = user.name ?: "",
-                imageUrl = "",
-                nameInitials = user.nameInitials()
+                imageUrl = if (user.id?.isOdd() == true) repository.getRedirectedUrl() else "",
+                nameInitials = user.initials()
             )
         }
 }

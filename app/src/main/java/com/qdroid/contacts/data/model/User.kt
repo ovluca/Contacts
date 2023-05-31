@@ -14,7 +14,7 @@ data class User(
 
 fun User.isActive() = status == "active"
 
-fun User.nameInitials(): String {
+fun User.initials(): String {
     val ignoreWords = listOf(
         "miss", "mister", "mr", "mrs", "ms",
         "dr", "prof", "sir", "lady", "lord",
