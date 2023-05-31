@@ -2,6 +2,8 @@ package com.qdroid.contacts.data.di
 
 import com.qdroid.contacts.data.ApiService
 import com.qdroid.contacts.data.Repository
+import com.qdroid.contacts.viewmodel.Contact
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -48,5 +50,14 @@ object ApiModule {
     @Singleton
     @Provides
     fun providesRepository(apiService: ApiService) = Repository(apiService)
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
+
+    @Singleton
+    @Provides
+    fun contactAdapter(): JsonAdapter<Contact> = provideMoshi().adapter(Contact::class.java)
+
 
 }

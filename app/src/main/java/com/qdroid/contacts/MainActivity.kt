@@ -46,8 +46,8 @@ fun Navigation() {
         composable(Screen.Contacts.route) {
             ContactsScreen(navController = navController, viewModel = contactsViewModel)
         }
-        composable(Screen.ContactDetails.route) {
-            ContactDetailsScreen(navController = navController)
+        composable(Screen.ContactDetails.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.getString("contact")?.let { contact -> ContactDetailsScreen(navController = navController, contact = contact) }
         }
     }
 }

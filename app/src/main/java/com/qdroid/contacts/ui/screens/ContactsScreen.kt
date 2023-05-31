@@ -21,6 +21,7 @@ import com.qdroid.contacts.ui.theme.Screen
 import com.qdroid.contacts.ui.views.ContactsList
 import com.qdroid.contacts.viewmodel.Contact
 import com.qdroid.contacts.viewmodel.ContactsViewModel
+import com.qdroid.contacts.viewmodel.toJson
 
 @Composable
 fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewModel) {
@@ -46,7 +47,15 @@ fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewMode
 
         is ContactsUiState.Success -> ContactsList(
             contacts = (contactsUiState as ContactsUiState.Success).data as List<Contact>,
-            onClick = { navController.navigate(Screen.ContactDetails.route) })
+            onClick = { contact ->
+                navController.navigate(
+                    /*not satisfied with the replace solution*/
+                    Screen.ContactDetails.route.replace(
+                        "{contact}",
+                        contact.toJson()
+                    )
+                )
+            })
     }
 
 }
