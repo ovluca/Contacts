@@ -10,7 +10,7 @@ import com.qdroid.contacts.data.model.User
 import com.qdroid.contacts.data.model.initials
 import com.qdroid.contacts.data.model.isActive
 import com.qdroid.contacts.isOdd
-import com.qdroid.contacts.state.ContactsUiState
+import com.qdroid.contacts.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,20 +23,20 @@ class ContactsViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<ContactsUiState> =
-        MutableStateFlow(ContactsUiState.Success())
-    internal val uiState: StateFlow<ContactsUiState> = _uiState.asStateFlow()
+    private val _uiState: MutableStateFlow<UiState> =
+        MutableStateFlow(UiState.Success())
+    internal val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             repository.getUsers().collect {
                 when (it) {
-                    is ApiResult.Error -> _uiState.value = ContactsUiState.Failure(it.exception)
+                    is ApiResult.Error -> _uiState.value = UiState.Failure(it.exception)
                     is ApiResult.Loading -> _uiState.value =
-                        ContactsUiState.Loading
+                        UiState.Loading
 
                     is ApiResult.Success -> _uiState.value =
-                        ContactsUiState.Success(processData(it.data as List<User>))
+                        UiState.Success(processData(it.data as List<User>))
                 }
             }
         }

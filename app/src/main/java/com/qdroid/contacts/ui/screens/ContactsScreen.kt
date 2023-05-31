@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.qdroid.contacts.R
-import com.qdroid.contacts.state.ContactsUiState
+import com.qdroid.contacts.state.UiState
 import com.qdroid.contacts.ui.theme.Screen
 import com.qdroid.contacts.ui.views.ContactsList
 import com.qdroid.contacts.viewmodel.Contact
@@ -27,7 +27,7 @@ import com.qdroid.contacts.viewmodel.toJson
 fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewModel) {
     val contactsUiState by viewModel.uiState.collectAsState()
     when (val uiState = contactsUiState) {
-        is ContactsUiState.Failure -> Column(
+        is UiState.Failure -> Column(
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxSize()
@@ -36,7 +36,7 @@ fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewMode
             Text(text = uiState.error)
         }
 
-        is ContactsUiState.Loading -> Box(
+        is UiState.Loading -> Box(
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxSize(),
@@ -45,7 +45,7 @@ fun ContactsScreen(navController: NavHostController, viewModel: ContactsViewMode
             CircularProgressIndicator()
         }
 
-        is ContactsUiState.Success -> ContactsList(
+        is UiState.Success -> ContactsList(
             contacts = uiState.data as List<Contact>,
             onClick = { contact ->
                 navController.navigate(

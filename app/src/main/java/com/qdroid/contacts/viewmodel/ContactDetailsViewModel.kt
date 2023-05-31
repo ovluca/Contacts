@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.qdroid.contacts.data.ApiResult
 import com.qdroid.contacts.data.Repository
 import com.qdroid.contacts.data.model.Post
-import com.qdroid.contacts.state.ContactsUiState
+import com.qdroid.contacts.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,25 +20,25 @@ class ContactDetailsViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<ContactsUiState> =
-        MutableStateFlow(ContactsUiState.Success())
-    internal val uiState: StateFlow<ContactsUiState> = _uiState.asStateFlow()
+    private val _uiState: MutableStateFlow<UiState> =
+        MutableStateFlow(UiState.Success())
+    internal val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     fun loadUserPosts(userId: Int) {
         viewModelScope.launch {
             repository.getUserPosts(userId = userId).collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Error -> _uiState.value =
-                        ContactsUiState.Failure(apiResult.exception)
+                        UiState.Failure(apiResult.exception)
 
                     is ApiResult.Loading -> _uiState.value =
-                        ContactsUiState.Loading
+                        UiState.Loading
 
                     is ApiResult.Success -> _uiState.value =
                         if ((apiResult.data as List<Post>).isEmpty()) {
-                            ContactsUiState.Failure("No Posts")
+                            UiState.Failure("No Posts")
                         } else {
-                            ContactsUiState.Success(apiResult.data)
+                            UiState.Success(apiResult.data)
                         }
                 }
             }

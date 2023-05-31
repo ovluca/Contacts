@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.qdroid.contacts.R
 import com.qdroid.contacts.data.model.Post
-import com.qdroid.contacts.state.ContactsUiState
+import com.qdroid.contacts.state.UiState
 import com.qdroid.contacts.ui.views.Avatar
 import com.qdroid.contacts.viewmodel.Contact
 import com.qdroid.contacts.viewmodel.ContactDetailsViewModel
@@ -82,7 +82,7 @@ fun ContactDetailsScreen(
         )
 
         when (val uiState = contactDetailsUiState) {
-            is ContactsUiState.Failure -> {
+            is UiState.Failure -> {
                 Column(
                     modifier = Modifier
                         .padding(20.dp)
@@ -99,7 +99,7 @@ fun ContactDetailsScreen(
                 }
             }
 
-            is ContactsUiState.Success -> {
+            is UiState.Success -> {
                 LazyColumn(modifier = Modifier.padding(top = 34.dp)) {
                     val posts = uiState.data as List<Post>
                     items(posts) {
@@ -146,7 +146,7 @@ fun ContactDetailsScreen(
                 }
             }
 
-            is ContactsUiState.Loading -> {
+            is UiState.Loading -> {
                 Box(
                     modifier = Modifier
                         .padding(20.dp)
